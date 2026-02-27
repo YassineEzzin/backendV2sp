@@ -11,9 +11,9 @@ import {config}  from 'dotenv';
 import cors from "cors";
 import cookieParser from 'cookie-parser';
 import fileUpload from 'express-fileupload';
-import {createTables } from "./utils/createTables.js"
+import {createTables } from "./utils/createTables.js";
 import { errorMiddleware } from './middlewares/errorMiddleware.js';
-
+import authRouter from "./router/authRoutes.js"
 const app = express()
 config( {path: "./server/config.env"});
 app.use(cors({
@@ -30,6 +30,9 @@ app.use(fileUpload( {
     tempFileDir : "./uploads",
     useTempFiles:true,
 } ));
+
+app.use("/api/v1/auth",authRouter);
+
 createTables()
 .then(()=>{
     console.log("db tables initialized ")
