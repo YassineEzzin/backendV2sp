@@ -12,6 +12,7 @@ import cors from "cors";
 import cookieParser from 'cookie-parser';
 import fileUpload from 'express-fileupload';
 import {createTables } from "./utils/createTables.js"
+import { errorMiddleware } from './middlewares/errorMiddleware.js';
 
 const app = express()
 config( {path: "./server/config.env"});
@@ -35,5 +36,7 @@ createTables()
 })
 .catch((error)=>  console.error("Faimed to initialize database",error) )
 
+
+app.use(errorMiddleware)
 
 export default app;
