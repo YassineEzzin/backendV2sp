@@ -8,7 +8,7 @@ class ErrorHandler extends Error {
 export const errorMiddleware =() => {
   err.message = err.message || " Inernal Server Error";
   err.statusCode = err.statusCode || 500;
-  if (err.code ===11000){
+  if (err.code === 11000){
     const message ='Duplicate field value entered';
     err = new ErrorHandler(message,400);
   }
@@ -32,6 +32,7 @@ export const errorMiddleware =() => {
         .map((error) => error.message)
         .join(" ")
     : err.message;
+    console.log(err)
 
   return res.status(err.statusCode).json({
     success: false,
